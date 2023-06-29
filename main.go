@@ -11,11 +11,14 @@ type event struct {
 	Name string `json:"name"`
 }
 
-func HandleRequest(ctx context.Context, e event) error {
-	fmt.Printf("Event: %s", e.Name)
-	return nil
+func handleRequest(ctx context.Context, e event) (string, error) {
+	_, err := fmt.Println("Event: ", e.Name)
+	if err != nil {
+		return "Failed", err
+	}
+	return "Success", nil
 }
 
 func main() {
-	lambda.Start(HandleRequest)
+	lambda.Start(handleRequest)
 }
